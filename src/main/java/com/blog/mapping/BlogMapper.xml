@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.blog.dao.BlogMapper">
+	<resultMap id="blogMap" type="com.blog.domain.Blog">
+		<id column="blog_id" property="blogId" />
+		<result column="blog_name" property="blogName" />
+		<result column="blog_picture" property="blogPicture" />
+		<result column="blog_content" property="blogContent" />
+		<result column="blog_catagory" property="blogCatagory" />
+		<result column="blog_time" property="blogTime" />
+		<result column="blog_author" property="blogAuthor" />
+	</resultMap>
+
+	<select id="selectBlog" resultMap="blogMap" parameterType="java.lang.Integer">
+		select
+		blog_id,blog_name,blog_picture,blog_content,blog_catagory,blog_time,blog_author
+		from b_blog
+		order by blog_time desc
+		limit #{currentPage},#{pageSize}
+	</select>
+
+	<insert id="addBlog" parameterType="com.blog.domain.Blog">
+		insert
+		into
+		b_blog(blog_name,blog_picture,blog_content,blog_catagory,blog_time,blog_author)
+		values
+		(#{blogName},#{blogPicture},#{blogContent},#{blogCatagory},#{blogTime},#{blogAuthor})
+	</insert>
+
+	<delete id="deleteBlog" parameterType="java.lang.Integer">
+		delete
+		from b_blog
+		where
+		blog_id=#{blogId}
+	</delete>
+
+	<update id="updateBlog" parameterType="com.blog.domain.Blog">
+		update
+		b_blog
+		set
+		blog_name=#{blogName},blog_picture=#{blogPicture},blog_content=#{blogContent},blog_catagory=#{blogCatagory},blog_time=#{blogTime},blog_author=#{blogAuthor}
+		where blog_id=#{blogId}
+	</update>
+
+	<select id="selectBlogById" parameterType="java.lang.Integer"
+		resultMap="blogMap">
+		select
+		blog_id,blog_name,blog_picture,blog_content,blog_catagory,blog_time,blog_author
+		from b_blog
+		where
+		blog_id=#{blogId}
+	</select>
+
+	<select id="getTotal" resultType="int">
+		select count(*) from b_blog
+	</select>
+</mapper>

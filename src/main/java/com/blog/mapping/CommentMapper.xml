@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.blog.dao.CommentMapper">
+	<resultMap id="commentMap" type="com.blog.domain.Comment">
+		<id column="comment_id" property="commentId" />
+		<result column="blog_id" property="blogId" />
+		<result column="comment_content" property="commentContent" />
+		<result column="comment_reply" property="commentReply" />
+	</resultMap>
+
+	<insert id="insertComment" parameterType="com.blog.domain.Comment">
+		insert
+		into
+		b_comment(blog_id,comment_content,comment_reply)
+		values(#{blogId},#{commentContent},#{commentReply})
+	</insert>
+
+	<update id="updateComment" parameterType="com.blog.domain.Comment">
+		update
+		b_comment
+		set comment_reply=#{commentReply}
+		where
+		blog_id=#{blogId}
+	</update>
+</mapper>
