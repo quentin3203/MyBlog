@@ -1,6 +1,7 @@
 package com.blog.controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.blog.domain.Article;
 import com.blog.domain.Blog;
+import com.blog.service.IArticleService;
 import com.blog.service.IBlogService;
 import com.blog.util.Pager;
 
@@ -25,6 +28,8 @@ import com.blog.util.Pager;
 public class AdminController {
 	@Resource
 	private IBlogService blogService;
+	@Resource
+	private IArticleService articleService;
 
 	@RequestMapping("/index")
 	public String Aindex(HttpServletRequest request, Model model) {
@@ -68,7 +73,9 @@ public class AdminController {
 		blog.setBlogTime(time);
 		blog.setBlogAuthor(author);
 		blogService.addBlog(blog);
-		file.transferTo(new File("c:\\Users\\Quentin\\Workspaces\\myblog Maven Webapp\\src\\main\\webapp\\images\\" + file.getOriginalFilename()));
+		file.transferTo(new File(
+				"c:\\Users\\Quentin\\Workspaces\\myblog Maven Webapp\\src\\main\\webapp\\images\\"
+						+ file.getOriginalFilename()));
 		return "redirect:/admin/index";
 	}
 
@@ -151,6 +158,25 @@ public class AdminController {
 	@RequestMapping("/new")
 	public String toNew(HttpServletRequest request, Model model) {
 		return "new";
+	}
+
+	@RequestMapping("/article")
+	public String toArticle(HttpServletRequest request, Model model) {
+		String title = request.getParameter("title");
+		String url = request.getParameter("url");
+		String title1 = request.getParameter("title1");
+		String url1 = request.getParameter("url1");
+		Article article = new Article();
+		Article article1 = new Article();
+		article.setATitle(title);
+		article.setAUrl(url);
+		article1.setATitle(title1);
+		article1.setAUrl(url1);
+		List<Article> list = new ArrayList<>();
+		list.add(article);
+		list.add(article1);
+		articleService.insertAriticle(list);
+		return "redirect:/admin/index";
 	}
 
 }

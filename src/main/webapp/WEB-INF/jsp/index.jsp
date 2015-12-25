@@ -14,15 +14,43 @@
 <title>博客主页</title>
 <meta name="keywords" content="个人博客模板,博客模板,响应式" />
 <meta name="description" content="如影随形主题的个人博客模板，神秘、俏皮。" />
-<link href="<%=path %>/css/base.css" type="text/css" rel="stylesheet">
-<link href="<%=path %>/css/index.css" type="text/css" rel="stylesheet">
-<link href="<%=path %>/css/media.css" type="text/css" rel="stylesheet">
+<link href="<%=path%>/css/base.css" type="text/css" rel="stylesheet">
+<link href="<%=path%>/css/index.css" type="text/css" rel="stylesheet">
+<link href="<%=path%>/css/media.css" type="text/css" rel="stylesheet">
 <meta name="viewport"
 	content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
 <!--[if lt IE 9]>
 <script src="js/modernizr.js"></script>
 <![endif]-->
-
+<script>
+	$.ajax({
+		method : "post",
+		url : "http://localhost:8080/myblog/blog/index",
+		data : {
+			"city" : city,
+			"pinyin" : pinyin,
+			"citycode" : citycode,
+			"date" : date,
+			"time" : time,
+			"postCode" : postCode,
+			"longitude" : longitude,
+			"latitude" : latitude,
+			"altitude" : altitude,
+			"weather" : weather,
+			"temp" : temp,
+			"l_tmp" :l_tmp,
+			"h_tmp" : h_tmp,
+			"WD" : WD,
+			"WS" : WS,
+			"sunrise" : sunrise,
+			"sunset" : sunset
+		},
+	success:function(data){
+		var wlist=eval(data);
+		alert(wlist.date);
+	}
+	});
+</script>
 </head>
 <body>
 	<div class="ibody">
@@ -32,9 +60,10 @@
 		<div class="logo">
 			<a href="/"></a>
 		</div>
-		<nav id="topnav"> <a href="<%=path %>/blog/showBlog">首页</a> <a
-			href="<%=path %>/blog/about">关于我</a> <a href="<%=path %>/blog/newlist">慢生活</a> <a
-			href="<%=path %>/blog/share">模板分享</a> <a href="<%=path %>/blog/new">模板主题</a></nav> </header>
+		<nav id="topnav"> <a href="<%=path%>/blog/showBlog">首页</a> <a
+			href="<%=path%>/blog/about">关于我</a> <a href="<%=path%>/blog/newlist">慢生活</a>
+		<a href="<%=path%>/blog/share">模板分享</a> <a href="<%=path%>/blog/new">模板主题</a></nav>
+		</header>
 		<article>
 		<div class="banner">
 			<ul class="texts">
@@ -54,10 +83,11 @@
 					<h3>
 						<a href="/">${blog.blogName}</a>
 					</h3>
-					<figure> <img src="<%=path %>/images/01.jpg"></figure>
+					<figure> <img src="<%=path%>/images/01.jpg"></figure>
 					<ul>
 						<p>${blog.blogContent}</p>
-						<a href="<%=path %>/blog/readBlog?blogid=${blog.blogId}" target="_blank" class="readmore">阅读全文&gt;&gt;</a>
+						<a href="<%=path %>/blog/readBlog?blogid=${blog.blogId}"
+							target="_blank" class="readmore">阅读全文&gt;&gt;</a>
 					</ul>
 					<p class="autor">
 						<span>作者：${blog.blogAuthor}</span><span>分类：【<a href="/">${blog.blogCatagory}</a>】
@@ -83,6 +113,7 @@
 			<p>籍贯：四川省—成都市</p>
 			<p>电话：13662012345</p>
 			<p>邮箱：dancesmiling@qq.com</p>
+			<p>wlist.time</p>
 		</div>
 		<div class="bdsharebuttonbox">
 			<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a
@@ -125,7 +156,7 @@
 				<p>友情链接</p>
 			</h2>
 			<ul>
-				<li><a href="<%=path %>/user/login">Quentin个人博客</a></li>
+				<li><a href="<%=path%>/user/login">Quentin个人博客</a></li>
 				<li><a href="/">3DST技术社区</a></li>
 			</ul>
 		</div>
@@ -139,7 +170,7 @@
 			</ul>
 		</div>
 		</aside>
-		<script src="<%=path %>/js/silder.js"></script>
+		<script src="<%=path%>/js/silder.js"></script>
 		<div class="clear"></div>
 		<!-- 清除浮动 -->
 	</div>
